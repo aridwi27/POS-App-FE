@@ -32,3 +32,7 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+# Backend
+https://github.com/aridwi27/POS-App-BE
