@@ -13,7 +13,7 @@
         <div></div>
       </div>
       <div class="col-8 boxside">
-        <h1 class="text-center fw-bold centertext">Food Items</h1>
+        <h1 class="text-center fw-bold centertext d-inline">Food Items</h1>
         <b-icon
           icon="power"
           class="float-right rounded-circle bg-danger p-2"

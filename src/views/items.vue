@@ -55,42 +55,38 @@
           </div>
         </div>
         <div class="row">
-          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 px-5 ml-2">
-            <div v-if="errorData">
-              <img src="../assets/nofound.jpg" class="center" />
-            </div>
-            <div v-else v-for="(item, index) in allItems" :key="index">
-              <div class="col">
-                <img
-                  :src="'http://localhost:3000/image/' + item.image"
-                  class="card-img-top rounded mb-2"
-                  style="
-                    height: 100%;
-                    width: 100%;
-                    max-width: 500px;
-                    max-height: 170px;
-                  "
-                />
-                <h5 class="card-title">{{ item.name }}</h5>
-                <h5 class="font-weight-bold">Rp.{{ item.price }}</h5>
-                <!-- add to cart -->
-                <button
-                  v-on:click="addCart(item)"
-                  class="btn btn-primary float-left mb-2"
-                >
-                  add cart
-                </button>
-                <!-- delete -->
+          <div v-if="errorData" class="col-12">
+            <img src="../assets/nofound.jpg" class="center img-fluid" />
+          </div>
+          <div
+            class="col-12 col-sm-6 col-md-4"
+            v-else
+            v-for="(item, index) in allItems"
+            :key="index"
+          >
+            <img
+              :src="'http://localhost:3000/image/' + item.image"
+              class="card-img-top rounded mb-2 img-fluid"
+              style="height: 100%; max-height: 150px"
+            />
+            <h5 class="card-title">{{ item.name }}</h5>
+            <h5 class="font-weight-bold">Rp.{{ item.price }}</h5>
+            <!-- add to cart -->
+            <button
+              v-on:click="addCart(item)"
+              class="btn btn-primary float-left mb-2"
+            >
+              add cart
+            </button>
+            <!-- delete -->
 
-                <!-- detail -->
-                <button
-                  class="btn btn-link float-right"
-                  @click="detailItems(item.id)"
-                >
-                  Detail
-                </button>
-              </div>
-            </div>
+            <!-- detail -->
+            <button
+              class="btn btn-link float-right"
+              @click="detailItems(item.id)"
+            >
+              Detail
+            </button>
           </div>
         </div>
         <button
@@ -173,6 +169,103 @@
                 CHECKOUT
               </button>
               <button class="btn btn-secondary btn-block">CANCEL</button>
+              <b-modal v-model="modalShow">
+                <template #modal-title>
+                  <h3 class="font-weight-bold">Add Item</h3>
+                </template>
+                <form>
+                  <div class="row mb-3">
+                    <label
+                      for="colFormLabel"
+                      class="col-sm-3 col-form-label font-weight-bold fs-3"
+                      >Name</label
+                    >
+                    <div class="col-sm">
+                      <input
+                        type="text"
+                        v-model="form.name"
+                        class="form-control form-control-lg formadditem"
+                        id="colFormLabel"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label
+                      for="colFormLabel"
+                      class="col-sm-3 col-form-label font-weight-bold fs-3"
+                      >Image</label
+                    >
+                    <div class="col-sm">
+                      <input
+                        type="file"
+                        @change="uploadImage($event)"
+                        class="form-control form-control-lg formadditem"
+                        id="colFormLabel"
+                      />
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label
+                      for="colFormLabel"
+                      class="col-sm-3 col-form-label font-weight-bold fs-3"
+                      >Price</label
+                    >
+                    <div class="col-sm-6">
+                      <input
+                        type="text"
+                        v-model="form.price"
+                        class="form-control form-control-lg formadditem"
+                        id="colFormLabel"
+                      />
+                    </div>
+                  </div>
+                  <div class="form-group row mb-3">
+                    <label
+                      for="formselected"
+                      class="col-sm-3 col-form-label font-weight-bold fs-3"
+                      >Category</label
+                    >
+                    <div class="col-sm-4">
+                      <b-form-select
+                        v-model="form.category"
+                        class="mb-3 formadditem"
+                      >
+                        <template #first>
+                          <b-form-select-option :value="null" disabled
+                            >Select</b-form-select-option
+                          >
+                        </template>
+                        <b-form-select-option value="1"
+                          >Drink</b-form-select-option
+                        >
+                        <b-form-select-option value="2"
+                          >Food</b-form-select-option
+                        >
+                      </b-form-select>
+                    </div>
+                  </div>
+                </form>
+                <template #modal-footer>
+                  <div class="w-100">
+                    <b-button
+                      variant="primary"
+                      size="lg"
+                      class="float-right"
+                      @click="input()"
+                    >
+                      Add
+                    </b-button>
+                    <b-button
+                      size="lg"
+                      class="btn btn-secondary float-right mx-2"
+                      @click="modalShow = !modalShow"
+                    >
+                      Cancel
+                    </b-button>
+                  </div>
+                </template>
+              </b-modal>
             </div>
           </div>
         </div>
