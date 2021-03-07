@@ -10,8 +10,6 @@ app have 2 access admin and chashier, admin can access all page then chashier ju
 
 ![checkout2](https://user-images.githubusercontent.com/44130582/110037941-12cf7500-7d7a-11eb-8734-7979ce88cc4d.PNG)
 
-
-
 ## Project setup
 ```
 npm install
@@ -34,3 +32,7 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+# Backend
+https://github.com/aridwi27/POS-App-BE
