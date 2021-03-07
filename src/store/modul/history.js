@@ -37,9 +37,10 @@ const history = {
       })
     },
     getDetailHistory (items, inv) {
+      console.log(inv)
       axios.get('http://localhost:3000/history/' + inv, { headers: { token: items.rootState.auth.token } }).then((response) => {
         console.log(response)
-        items.commit('setDetail', response)
+        items.commit('setDetail', response.data.data)
       })
     }
 

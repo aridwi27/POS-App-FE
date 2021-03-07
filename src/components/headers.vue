@@ -59,7 +59,7 @@ export default {
     whenLogout () {
       this.setLogout().then((response) => {
         if (response) {
-          this.$router.push('/login')
+          this.$router.push('/')
         }
       })
     }

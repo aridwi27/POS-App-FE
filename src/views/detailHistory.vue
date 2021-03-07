@@ -39,6 +39,7 @@ export default {
   },
   data () {
     return {
+      paramInv: this.$route.params.inv
     }
   },
   computed: {
@@ -52,8 +53,7 @@ export default {
     })
   },
   mounted () {
-    this.detailget()
-    console.log(this.detailget())
+    this.detailget(this.paramInv)
   }
 }
 </script>

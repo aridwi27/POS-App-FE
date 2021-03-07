@@ -67,7 +67,7 @@ router.beforeEach((to, from, next) => {
     } else {
       alert('you dont have access')
       next({
-        path: '/login'
+        path: '/'
       })
     }
   } else {

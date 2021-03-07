@@ -1,37 +1,5 @@
 <template>
   <div>
-    <!-- <form action="" @submit.prevent="register()">
-      <input
-        v-model="form.name"
-        type="text"
-        class="form my-2"
-        placeholder="nama"
-      />
-      <br />
-      <input
-        v-model="form.email"
-        type="text"
-        class="form my-2"
-        placeholder="email"
-      />
-      <br />
-      <input
-        v-model="form.password"
-        type="password"
-        class="form my-2"
-        placeholder="password"
-      />
-      <br />
-      <input
-        v-model="form.level"
-        type="text"
-        class="form my-2"
-        placeholder="level"
-      />
-      <br />
-
-      <button class="btn btn-info my-2" type="submit">register</button>
-    </form> -->
     <body>
       <div class="register">
         <div class="container">
@@ -89,10 +57,10 @@
                           >Select</b-form-select-option
                         >
                       </template>
-                      <b-form-select-option value="1">
+                      <b-form-select-option value="2">
                         Cashier
                       </b-form-select-option>
-                      <b-form-select-option value="2">
+                      <b-form-select-option value="1">
                         Admin
                       </b-form-select-option>
                     </b-form-select>
@@ -136,7 +104,7 @@ export default {
       // console.log(dataBaru)
       // this.register(dataBaru)
       this.actionRegister(this.form)
-      this.$router.push('/login')
+      this.$router.push('/')
       console.log(this.form)
     }
   }

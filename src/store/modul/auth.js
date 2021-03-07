@@ -4,23 +4,29 @@ const modulAuth = {
   namespaced: true,
   state: () => {
     return {
-      token: localStorage.getItem('token') || null
+      token: localStorage.getItem('token') || null,
+      cashier: localStorage.getItem('setCashier') || null
     }
   },
   mutations: {
     setToken (state, payload) {
       state.token = payload
+    },
+    setCashier (state, payload) {
+      state.cashier = payload
     }
   },
   actions: {
     login (form, data) {
       return new Promise((resolve, reject) => {
         axios.post('http://localhost:3000/login', data).then((response) => {
-          console.log(response.data)
-          console.log(response.data.msg)
+          console.log(response)
+          // console.log(response.data.msg)
           localStorage.setItem('token', response.data.token)
+          localStorage.setItem('setCashier', response.data.name)
           form.commit('setToken', response.data.token)
-          resolve(response.data.msg)
+          form.commit('setCashier', response.data.name)
+          resolve(response.data)
         }).catch((err) => {
           console.log(err)
           console.log(err.data.code)
@@ -38,6 +44,9 @@ const modulAuth = {
   getters: {
     getToken (state) {
       return state.token
+    },
+    getCashier (state) {
+      return state.cashier
     }
   }
 }

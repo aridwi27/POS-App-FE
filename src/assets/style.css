@@ -165,10 +165,12 @@
   
   .btn-primary {
     background: #57cad5 !important;
+    border-color:  #57cad5 !important;
   }
   
   .btn-secondary {
     background: #f24f8a !important;
+    border-color:  #f24f8a !important;
   }
   
   .modalpading {

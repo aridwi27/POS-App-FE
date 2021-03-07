@@ -1,7 +1,16 @@
-# apps untuk cashier versi beta
+# apps for cashier versi beta
 
-terdapat 2 hak acces yaitu admin dan cashier
-accesnya sendiri admin bisa mengakses semua halaman, sedangkan cashier hanya bisa mengakses halaman item/product
+app have 2 access admin and chashier, admin can access all page then chashier just only page items food
+
+# apps preview
+
+![item1](https://user-images.githubusercontent.com/44130582/110037840-ee739880-7d79-11eb-8168-623f9a6812b2.PNG)
+
+![add2](https://user-images.githubusercontent.com/44130582/110037937-1105b180-7d7a-11eb-91a6-a7e210b44c98.PNG)
+
+![checkout2](https://user-images.githubusercontent.com/44130582/110037941-12cf7500-7d7a-11eb-8734-7979ce88cc4d.PNG)
+
+
 
 ## Project setup
 ```

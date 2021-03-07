@@ -1,22 +1,5 @@
 <template>
   <div>
-    <!-- <form action="" @submit.prevent="login()">
-      <p class="h4 text-center mb-4">Sign in</p> -->
-    <!-- <input
-        v-model="email"
-        type="text"
-        class="form-group my-2"
-        placeholder="email"
-      /> -->
-    <!-- <input
-        v-model="password"
-        type="password"
-        class="form my-2"
-        placeholder="password"
-      />
-      <br />
-      <button class="btn btn-info my-2" type="submit">Login</button>
-    </form> -->
     <body>
       <div id="login">
         <h3 class="text-center text-white pt-5">Login form</h3>
@@ -93,8 +76,14 @@ export default {
         password: this.password
       }
       this.action(data).then((response) => {
-        alert(response)
-        this.$router.push('/items')
+        if (response.message === 'data unregisted') {
+          this.$swal('email unregister')
+        } else if (response.message === 'password wrong') {
+          this.$swal('password wrong')
+        } else {
+          console.log(response)
+          this.$router.push('/items')
+        }
       })
     }
   }

@@ -122,7 +122,7 @@
   position: fixed;
   height: 100%;
   background-color: aliceblue;
-  max-width: 80px;
+  max-width: 100px;
   width: 100%;
   left: 0;
   padding: 20px;

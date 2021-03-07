@@ -3,7 +3,7 @@
     <headers v-bind:totalCart="dataCart.length" />
     <div class="row content">
       <div class="col-md-1"></div>
-      <div class="col-md-8 container-fluid maincontent">
+      <div class="col-md-8 py-3 px-5 container-fluid maincontent">
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="Search">Search</label>
@@ -69,14 +69,14 @@
               class="card-img-top rounded mb-2 img-fluid"
               style="height: 100%; max-height: 150px"
             />
-            <h5 class="card-title">{{ item.name }}</h5>
-            <h5 class="font-weight-bold">Rp.{{ item.price }}</h5>
+            <h4 class="card-title text-left">{{ item.name }}</h4>
+            <h5 class="font-weight-bold text-left">Rp.{{ item.price }}</h5>
             <!-- add to cart -->
             <button
               v-on:click="addCart(item)"
               class="btn btn-primary float-left mb-2"
             >
-              add cart
+              Add Cart
             </button>
             <!-- delete -->
 
@@ -113,47 +113,48 @@
             Please add some items from the menu
           </p>
         </div>
-        <div v-else class="card-body p-2">
-          <div v-for="(items, index) in dataCart" :key="index">
-            <img
-              :src="'http://localhost:3000/image/' + items.image"
-              class="cardimg"
-              style="width: 200px"
-              alt=""
-            />
-
-            <h5 class="float-left">{{ items.name }}</h5>
-            <br />
-            <div
-              class="btn-group card-text flex-wrap btn-group-sm"
-              role="group"
-              aria-label="Basic outlined example"
-            >
-              <button
-                type="button"
-                class="btn btn-outline-primary"
-                @click="minValue(items.id)"
+        <div v-else class="card-body p-1">
+          <div class="row" v-for="(items, index) in dataCart" :key="index">
+            <div class="col-4 col-md-4">
+              <img
+                :src="'http://localhost:3000/image/' + items.image"
+                class="img-fluid my-2"
+                style="max-height: 100px"
+                alt=""
+              />
+            </div>
+            <div class="col-8 col-md-8">
+              <h5 class="text-left font-weight-bold">{{ items.name }}</h5>
+              <div class="btn-group float-left btn-group-sm">
+                <button
+                  type="button"
+                  class="btn btn-outline-primary font-weight-bold"
+                  @click="minValue(items.id)"
+                >
+                  -
+                </button>
+                <button type="button" class="btn btnvalue">
+                  {{ items.quantity }}
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-primary font-weight-bold"
+                  @click="addValue(items.id)"
+                >
+                  +
+                </button>
+              </div>
+              <span class="font-weight-bold" style="float: right"
+                >Rp. {{ items.quantity * items.price }}</span
               >
-                -
-              </button>
-              <button type="button" class="btn btnvalue">
-                {{ items.quantity }}
-              </button>
+              <br />
               <button
-                type="button"
-                class="btn btn-outline-primary"
-                @click="addValue(items.id)"
+                @click="deleteCart(items.id)"
+                class="btn btn-danger mt-3 float-right"
               >
-                +
+                cancel
               </button>
             </div>
-            <span class="fw-bold mt-3" style="float: right;!important"
-              >Rp. {{ items.quantity * items.price }}</span
-            >
-            <br />
-            <button @click="deleteCart(items.id)" class="btn btn-danger my-3">
-              cancel
-            </button>
             <br />
           </div>
           <div class="footer">
@@ -162,13 +163,70 @@
               <h5 class="float-right font-weight-bold">Rp. {{ addPrice }}</h5>
             </div>
             <div>
-              <button
-                class="btn btn-primary btn-block my-3"
-                @click="historyInput(dataCart)"
+              <b-button
+                class="btn btn-primary btn-block my-3 font-weight-bold"
+                v-b-modal.modal-center
+                variant="primary"
               >
+                <!-- @click="historyInput(dataCart)" -->
                 CHECKOUT
+              </b-button>
+              <div>
+                <b-modal
+                  id="modal-center"
+                  centered
+                  size="lg"
+                  hide-header
+                  hide-footer
+                  title="BootstrapVue"
+                >
+                  <div class="px-4 py-3">
+                    <h3 class="font-weight-bold text-left d-inline">
+                      Checkout
+                    </h3>
+                    <h5 class="font-weight-bold float-right">
+                      Recipe No <span>#{{ invoice }}</span>
+                    </h5>
+                    <br />
+                    <p class="font-weight-bold mt-3">Cashier : {{ Cashier }}</p>
+                    <div v-for="(item, i) in dataCart" :key="i">
+                      <h4 class="font-weight-bold">
+                        {{ item.name }} {{ item.quantity }}x
+                        <span class="float-right"
+                          >Rp. {{ item.price * item.quantity }}</span
+                        >
+                      </h4>
+                    </div>
+                    <h4 class="text-right mt-5 font-weight-bold">
+                      Total : Rp. {{ addPrice }}
+                    </h4>
+                    <h4 class="mt-5 font-weight-bold">Payment : Cash</h4>
+                    <b-button
+                      class="btn btn-primary btn-block my-3 font-weight-bold"
+                      v-b-modal.modal-center
+                      variant="secondary"
+                      size="lg"
+                      @click="historyInput(dataCart)"
+                    >
+                      <!-- @click="historyInput(dataCart)" -->
+                      Print
+                    </b-button>
+                    <h5 class="text-center">Or</h5>
+                    <b-button
+                      class="btn btn-primary btn-block my-3 font-weight-bold"
+                      v-b-modal.modal-center
+                      variant="primary"
+                      size="lg"
+                    >
+                      <!-- @click="historyInput(dataCart)" -->
+                      Send Email
+                    </b-button>
+                  </div>
+                </b-modal>
+              </div>
+              <button class="font-weight-bold btn btn-secondary btn-block">
+                CANCEL
               </button>
-              <button class="btn btn-secondary btn-block">CANCEL</button>
               <b-modal v-model="modalShow">
                 <template #modal-title>
                   <h3 class="font-weight-bold">Add Item</h3>
@@ -298,7 +356,8 @@ export default {
       allItems: 'items/getAllItems',
       errorData: 'items/isError',
       msg: 'items/errorMsg',
-      page: 'items/getPage'
+      page: 'items/getPage',
+      Cashier: 'auth/getCashier'
     })
   },
   methods: {
@@ -318,7 +377,7 @@ export default {
     whenLogout () {
       this.setLogout().then((response) => {
         if (response) {
-          this.$router.push('/login')
+          this.$router.push('/')
         }
       })
     },
@@ -348,7 +407,7 @@ export default {
           name: element.name,
           price: element.price,
           addPrice: 0,
-          cashier: this.cashier,
+          cashier: this.Cashier,
           invoice: this.invoice
         }
         this.dataCart = [...this.dataCart, newData]

@@ -100,9 +100,11 @@ export default {
   },
   methods: {
     ...mapActions({
-      getData: 'history/getHistory'
+      getData: 'history/getHistory',
+      getDetail: 'history/getDetailHistory'
     }),
     detailHistory (inv) {
+      console.log(inv)
       this.$router.push('/historydetail/' + inv)
     },
     pageMove (page) {
