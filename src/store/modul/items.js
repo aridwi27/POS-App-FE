@@ -9,7 +9,8 @@ const items = {
       page: {},
       isLoading: false,
       isError: false,
-      errMessage: ''
+      errMessage: '',
+      webURL: process.env.VUE_APP_URL
     }
   },
   mutations: {
@@ -33,54 +34,51 @@ const items = {
     }
   },
   actions: {
-    getItems (items, filter) {
-      console.log(filter)
-      console.log(items.rootState.auth.token)
-      axios.get(`http://localhost:3000/items?name=${filter.search}&page=${filter.setPage}&sort=${filter.sort}&order=${filter.order}`, { headers: { token: items.rootState.auth.token } }).then((response) => {
+    getItems (context, filter) {
+      axios.get(`${context.state.webURL}/items?name=${filter.search}&page=${filter.setPage}&sort=${filter.sort}&order=${filter.order}`, { headers: { token: context.rootState.auth.token } }).then((response) => {
         if (response.data.data <= 0) {
-          items.commit('setIsError', true)
-          items.commit('setErrorMsg', 'Data Not Found')
+          context.commit('setIsError', true)
+          context.commit('setErrorMsg', 'Data Not Found')
         } else {
-          items.commit('setIsError', false)
-          items.commit('setItems', response.data.data)
-          items.commit('setPage', response.data.pagination)
+          context.commit('setIsError', false)
+          context.commit('setItems', response.data.data)
+          context.commit('setPage', response.data.pagination)
         }
-        console.log(response)
       })
     },
-    actionGetDetail (items, id) {
-      axios.get('http://localhost:3000/items/' + id, { headers: { token: items.rootState.auth.token } }).then((response) => {
-        console.log(response.data)
-        items.commit('setDetailItems', response.data)
+    actionGetDetail (context, id) {
+      console.log(context.state.webURL)
+      axios.get(`${context.state.webURL}/items/${id}`, { headers: { token: context.rootState.auth.token } }).then((response) => {
+        console.log(response)
+        context.commit('setDetailItems', response.data)
       }).catch((error) => {
         console.log(error)
       })
     },
-    addItems (items, dataBaru) {
-      console.log(dataBaru)
+    addItems (context, dataBaru) {
       return new Promise((resolve, reject) => {
-        axios.post('http://localhost:3000/items', dataBaru, { headers: { token: items.rootState.auth.token } }).then((response) => {
-          console.log(response)
+        axios.post(`${context.state.webURL}/items`, dataBaru, { headers: { token: context.rootState.auth.token } }).then((response) => {
+          console.log(response.data)
+          resolve(response.data)
         }).catch((err) => {
           console.log(err)
         })
       })
     },
-    deleteItems (items, id) {
-      console.log(id)
+    deleteItems (context, id) {
       return new Promise((resolve, reject) => {
-        axios.delete('http://localhost:3000/items/' + id, { headers: { token: items.rootState.auth.token } }).then((response) => {
-          console.log(response)
+        axios.delete(`${context.state.webURL}/items/${id}`, { headers: { token: context.rootState.auth.token } }).then((response) => {
         }).catch((err) => {
           console.log(err)
         })
       })
     },
-    updateItems (items, data) {
+    updateItems (context, data) {
       console.log(data.id)
       return new Promise((resolve, reject) => {
-        axios.put('http://localhost:3000/items/' + data.id, data.fileUpdate, { headers: { token: items.rootState.auth.token } }).then((response) => {
-          console.log(response)
+        axios.put(`${context.state.webURL}/items/${data.id}`, data.fileUpdate, { headers: { token: context.rootState.auth.token } }).then((response) => {
+          console.log(response.data)
+          resolve(response.data)
         }).catch((err) => {
           console.log(err)
         })

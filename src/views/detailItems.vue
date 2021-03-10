@@ -5,7 +5,7 @@
       <div class="row">
         <div class="col-8">
           <img
-            :src="'http://localhost:3000/image/' + detail.data.image"
+            :src="`${webURL}/image/${detail.data.image}`"
             class="img-fluid rounded mx-auto d-block"
             style="
               max-width: 400px;
@@ -22,7 +22,7 @@
             class="mx-2 btn btn-secondary btn-lg"
             @click="modalDelete = !modalDelete"
           >
-            delete
+            Delete
           </button>
 
           <!-- modal delete -->
@@ -56,7 +56,7 @@
             @click="modalUpdate = !modalUpdate"
             class="mx-2 btn btn-primary btn-lg"
           >
-            update
+            Update
           </button>
 
           <!-- modal update -->
@@ -76,6 +76,7 @@
                   <input
                     type="text"
                     v-model="form.name"
+                    :placeholder="detail.data.name"
                     class="form-control form-control-lg formadditem"
                     id="colFormLabel"
                   />
@@ -107,6 +108,7 @@
                   <input
                     type="text"
                     v-model="form.price"
+                    :placeholder="detail.data.price"
                     class="form-control form-control-lg formadditem"
                     id="colFormLabel"
                   />
@@ -142,7 +144,7 @@
                   class="float-right"
                   @click="update(detail.data.id)"
                 >
-                  Add
+                  Update
                 </b-button>
                 <b-button
                   size="lg"
@@ -180,7 +182,8 @@ export default {
         price: '',
         category: null,
         image: ''
-      }
+      },
+      webURL: process.env.VUE_APP_URL
     }
   },
   computed: {
@@ -195,16 +198,14 @@ export default {
       updateData: 'items/updateItems'
     }),
     deleteItems (id) {
-      console.log(id)
       this.delete(id)
-      alert('delete data success')
+      this.$swal('Update Data Success')
       this.$router.push('/items')
     },
     uploadImage (e) {
       this.form.image = e.target.files[0]
     },
     update (id) {
-      console.log(id)
       const convertForm = new FormData()
       convertForm.append('name', this.form.name)
       convertForm.append('id_category', this.form.category)
@@ -214,7 +215,18 @@ export default {
         fileUpdate: convertForm,
         id: id
       }
-      this.updateData(formUpdate)
+      this.updateData(formUpdate).then((response) => {
+        if (response.code === 404) {
+          this.$swal('type file must be .png or .jpg')
+        } else if (response.code === 400) {
+          this.$swal('please fill all form')
+        } else if (response.code === 500) {
+          this.$swal('please fill all form')
+        } else {
+          this.$swal('input data Success')
+          this.$router.push('/items')
+        }
+      })
     }
   },
   mounted () {

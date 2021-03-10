@@ -2,7 +2,7 @@ const mixins = {
   data () {
     return {
       addPrice: 0,
-      invoice: '19',
+      invoice: '',
       cashier: 'maimunah',
       dataCart: [],
       databaru: '',

@@ -29,47 +29,50 @@
         <form>
           <div class="row mb-3">
             <label
-              for="colFormLabel"
+              for="name"
               class="col-sm-3 col-form-label font-weight-bold fs-3"
               >Name</label
             >
             <div class="col-sm">
               <input
                 type="text"
+                required
                 v-model="form.name"
                 class="form-control form-control-lg formadditem"
-                id="colFormLabel"
+                id="name"
               />
             </div>
           </div>
 
           <div class="row mb-3">
             <label
-              for="colFormLabel"
+              for="image"
               class="col-sm-3 col-form-label font-weight-bold fs-3"
               >Image</label
             >
             <div class="col-sm">
               <input
                 type="file"
+                required
                 @change="uploadImage($event)"
                 class="form-control form-control-lg formadditem"
-                id="colFormLabel"
+                id="image"
               />
             </div>
           </div>
           <div class="row mb-3">
             <label
-              for="colFormLabel"
+              for="price"
               class="col-sm-3 col-form-label font-weight-bold fs-3"
               >Price</label
             >
             <div class="col-sm-6">
               <input
                 type="text"
+                required
                 v-model="form.price"
                 class="form-control form-control-lg formadditem"
-                id="colFormLabel"
+                id="price"
               />
             </div>
           </div>
@@ -149,12 +152,19 @@ export default {
         category: null,
         image: ''
       },
+      reload: {
+        search: '',
+        sort: null,
+        order: null,
+        setPage: 1
+      },
       selected: null
     }
   },
   methods: {
     ...mapActions({
-      actionInput: 'items/addItems'
+      actionInput: 'items/addItems',
+      get: 'items/getItems'
     }),
     input () {
       const convertForm = new FormData()
@@ -162,9 +172,19 @@ export default {
       convertForm.append('id_category', this.form.category)
       convertForm.append('price', this.form.price)
       convertForm.append('image', this.form.image)
-      console.log(convertForm)
-      this.actionInput(convertForm)
-      this.$router.push('/items')
+      this.actionInput(convertForm).then((response) => {
+        if (response.code === 404) {
+          this.$swal('type file must be .png or .jpg')
+        } else if (response.code === 400) {
+          this.$swal('please fill all form')
+        } else if (response.code === 500) {
+          this.$swal('please fill all form')
+        } else {
+          this.$swal('input data Success')
+          this.$router.push('/items')
+          this.get(this.reload)
+        }
+      })
     },
     uploadImage (e) {
       this.form.image = e.target.files[0]

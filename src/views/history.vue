@@ -34,7 +34,6 @@
               <table class="table">
                 <thead>
                   <tr>
-                    <th>id</th>
                     <th>INVOICE</th>
                     <th>CASHIER</th>
                     <th>ORDERS</th>
@@ -46,7 +45,6 @@
                 </thead>
                 <tbody v-for="(element, index) in history" :key="index">
                   <tr>
-                    <th>{{ element.id }}</th>
                     <th>{{ element.invoice }}</th>
                     <td>{{ element.cashier }}</td>
                     <td>{{ element.name }}</td>

@@ -17,7 +17,12 @@
           </div>
           <div class="form-group col-md-2">
             <label for="Sort">Sort</label>
-            <b-form-select id="Sort" v-model="form.sort" class="form-control">
+            <b-form-select
+              id="Sort"
+              v-model="form.sort"
+              @change="searchItems()"
+              class="form-control"
+            >
               <template #first>
                 <b-form-select-option :value="null" disabled
                   >-- Please select an option --</b-form-select-option
@@ -30,7 +35,12 @@
           </div>
           <div class="form-group col-md-2">
             <label for="Order">Order</label>
-            <b-form-select id="Order" v-model="form.order" class="form-control">
+            <b-form-select
+              id="Order"
+              v-model="form.order"
+              @change="searchItems()"
+              class="form-control"
+            >
               <template #first>
                 <b-form-select-option :value="null" disabled
                   >-- Please select an option --</b-form-select-option
@@ -44,30 +54,21 @@
               >
             </b-form-select>
           </div>
-          <div class="form-group col-md-2">
-            <button
-              type="submit"
-              @click="searchItems()"
-              class="btn btn-primary mt-4 ml-2 float-right"
-            >
-              Filter
-            </button>
-          </div>
         </div>
         <div class="row">
           <div v-if="errorData" class="col-12">
             <img src="../assets/nofound.jpg" class="center img-fluid" />
           </div>
           <div
-            class="col-12 col-sm-6 col-md-4"
+            class="col-12 col-sm-6 col-md-4 mb-5"
             v-else
             v-for="(item, index) in allItems"
             :key="index"
           >
             <img
-              :src="'http://localhost:3000/image/' + item.image"
+              :src="`${webURL}/image/${item.image}`"
               class="card-img-top rounded mb-2 img-fluid"
-              style="height: 100%; max-height: 150px"
+              style="height: 100%; max-height: 180px"
             />
             <h4 class="card-title text-left">{{ item.name }}</h4>
             <h5 class="font-weight-bold text-left">Rp.{{ item.price }}</h5>
@@ -117,9 +118,9 @@
           <div class="row" v-for="(items, index) in dataCart" :key="index">
             <div class="col-4 col-md-4">
               <img
-                :src="'http://localhost:3000/image/' + items.image"
+                :src="`${webURL}/image/` + items.image"
                 class="img-fluid my-2"
-                style="max-height: 100px"
+                style="max-height: 100px; max-width: 100px; width: 100%"
                 alt=""
               />
             </div>
@@ -168,7 +169,6 @@
                 v-b-modal.modal-center
                 variant="primary"
               >
-                <!-- @click="historyInput(dataCart)" -->
                 CHECKOUT
               </b-button>
               <div>
@@ -208,7 +208,6 @@
                       size="lg"
                       @click="historyInput(dataCart)"
                     >
-                      <!-- @click="historyInput(dataCart)" -->
                       Print
                     </b-button>
                     <h5 class="text-center">Or</h5>
@@ -218,7 +217,6 @@
                       variant="primary"
                       size="lg"
                     >
-                      <!-- @click="historyInput(dataCart)" -->
                       Send Email
                     </b-button>
                   </div>
@@ -227,103 +225,6 @@
               <button class="font-weight-bold btn btn-secondary btn-block">
                 CANCEL
               </button>
-              <b-modal v-model="modalShow">
-                <template #modal-title>
-                  <h3 class="font-weight-bold">Add Item</h3>
-                </template>
-                <form>
-                  <div class="row mb-3">
-                    <label
-                      for="colFormLabel"
-                      class="col-sm-3 col-form-label font-weight-bold fs-3"
-                      >Name</label
-                    >
-                    <div class="col-sm">
-                      <input
-                        type="text"
-                        v-model="form.name"
-                        class="form-control form-control-lg formadditem"
-                        id="colFormLabel"
-                      />
-                    </div>
-                  </div>
-
-                  <div class="row mb-3">
-                    <label
-                      for="colFormLabel"
-                      class="col-sm-3 col-form-label font-weight-bold fs-3"
-                      >Image</label
-                    >
-                    <div class="col-sm">
-                      <input
-                        type="file"
-                        @change="uploadImage($event)"
-                        class="form-control form-control-lg formadditem"
-                        id="colFormLabel"
-                      />
-                    </div>
-                  </div>
-                  <div class="row mb-3">
-                    <label
-                      for="colFormLabel"
-                      class="col-sm-3 col-form-label font-weight-bold fs-3"
-                      >Price</label
-                    >
-                    <div class="col-sm-6">
-                      <input
-                        type="text"
-                        v-model="form.price"
-                        class="form-control form-control-lg formadditem"
-                        id="colFormLabel"
-                      />
-                    </div>
-                  </div>
-                  <div class="form-group row mb-3">
-                    <label
-                      for="formselected"
-                      class="col-sm-3 col-form-label font-weight-bold fs-3"
-                      >Category</label
-                    >
-                    <div class="col-sm-4">
-                      <b-form-select
-                        v-model="form.category"
-                        class="mb-3 formadditem"
-                      >
-                        <template #first>
-                          <b-form-select-option :value="null" disabled
-                            >Select</b-form-select-option
-                          >
-                        </template>
-                        <b-form-select-option value="1"
-                          >Drink</b-form-select-option
-                        >
-                        <b-form-select-option value="2"
-                          >Food</b-form-select-option
-                        >
-                      </b-form-select>
-                    </div>
-                  </div>
-                </form>
-                <template #modal-footer>
-                  <div class="w-100">
-                    <b-button
-                      variant="primary"
-                      size="lg"
-                      class="float-right"
-                      @click="input()"
-                    >
-                      Add
-                    </b-button>
-                    <b-button
-                      size="lg"
-                      class="btn btn-secondary float-right mx-2"
-                      @click="modalShow = !modalShow"
-                    >
-                      Cancel
-                    </b-button>
-                  </div>
-                </template>
-              </b-modal>
             </div>
           </div>
         </div>
@@ -348,7 +249,8 @@ export default {
         sort: null,
         order: null,
         setPage: 1
-      }
+      },
+      webURL: process.env.VUE_APP_URL
     }
   },
   computed: {
@@ -471,14 +373,23 @@ export default {
           amount: element.price
         }
         this.databaru = [...this.databaru, getData]
-        console.log(this.databaru)
         this.inputHistory(this.databaru)
-        alert('data input success')
+        this.$router.push('/history')
       })
+      alert('data input success')
+    },
+    generateInv () {
+      function getRandomInt (min, max) {
+        min = Math.ceil(min)
+        max = Math.floor(max)
+        return Math.floor(Math.random() * (max - min) + min)
+      }
+      this.invoice = getRandomInt(1, 999999)
     }
   },
   mounted () {
     this.get(this.form)
+    this.generateInv()
   }
 }
 </script>

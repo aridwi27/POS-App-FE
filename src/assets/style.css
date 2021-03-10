@@ -1,25 +1,13 @@
 
-  #login .container #login-row #login-column #login-box {
-    margin-top: 120px;
-    max-width: 600px;
-    height: 320px;
-    border: 1px solid #9C9C9C;
-    background-color: #8dbbe6;
+  .bgimagelo {
+    background-image: url(../assets/Food-Background-Wallpaper.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
   }
-  #login .container #login-row #login-column #login-box #login-form {
-    padding: 20px;
+  .fonttype {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   }
-  #login .container #login-row #login-column #login-box #login-form #register-link {
-    margin-top: -65px;
-  }
-  .register #login-row #login-column #login-box {
-    margin-top: 60px;
-    max-width: 600px;
-    height: 500px;
-    border: 1px solid #9C9C9C;
-    background-color: #8dbbe6;
-  }
-
 
 /* header */
 
@@ -219,6 +207,7 @@
   
   body {
     font-family: "Lato", sans-serif;
+    height: 100%;
   }
   
   .sidenav {

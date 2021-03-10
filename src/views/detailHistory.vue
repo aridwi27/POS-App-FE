@@ -18,7 +18,7 @@
               <tr>
                 <th class="my-3">{{ element.invoice }}</th>
                 <th class="my-3">{{ element.cashier }}</th>
-                <th class="my-3">{{ element.orders }}</th>
+                <th class="my-3">{{ element.name }}</th>
                 <th class="my-3">{{ element.quantity }}</th>
                 <th class="my-3">{{ element.amount }}</th>
               </tr>
