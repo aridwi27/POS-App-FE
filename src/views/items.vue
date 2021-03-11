@@ -1,11 +1,11 @@
 <template>
   <div>
-    <headers v-bind:totalCart="dataCart.length" />
+    <headers v-bind:Food="pageFood" v-bind:totalCart="dataCart.length" />
     <div class="row content">
-      <div class="col-md-1"></div>
-      <div class="col-md-8 py-3 px-5 container-fluid maincontent">
+      <div class="col-3 col-md-1"></div>
+      <div class="col-12 col-md-8 py-3 px-5 maincontent">
         <div class="form-row">
-          <div class="form-group col-md-6">
+          <div class="form-group col-6">
             <label for="Search">Search</label>
             <input
               type="text"
@@ -15,7 +15,7 @@
               id="Search"
             />
           </div>
-          <div class="form-group col-md-2">
+          <div class="form-group col-3">
             <label for="Sort">Sort</label>
             <b-form-select
               id="Sort"
@@ -33,7 +33,7 @@
               <b-form-select-option value="price">Price</b-form-select-option>
             </b-form-select>
           </div>
-          <div class="form-group col-md-2">
+          <div class="form-group col-3">
             <label for="Order">Order</label>
             <b-form-select
               id="Order"
@@ -102,7 +102,7 @@
 
       <!-- cart -->
 
-      <div class="col-md-3">
+      <div class="d-none d-md-block col-md-3">
         <div v-if="dataCart.length <= 0" class="card-body p-2">
           <img
             src="../assets/food-and-restaurant.png"
@@ -221,8 +221,105 @@
                     </b-button>
                   </div>
                 </b-modal>
+                <b-modal
+                  id="modal-cart-mobile"
+                  centered
+                  size="lg"
+                  hide-header
+                  hide-footer
+                  title="BootstrapVue"
+                >
+                  <div class="px-4 py-3">
+                    <h3 class="font-weight-bold text-left d-inline">
+                      Checkout
+                    </h3>
+                    <h5 class="font-weight-bold float-right">
+                      Recipe No <span>#{{ invoice }}</span>
+                    </h5>
+                    <br />
+                    <p class="font-weight-bold mt-3">Cashier : {{ Cashier }}</p>
+                    <div
+                      class="row"
+                      v-for="(items, index) in dataCart"
+                      :key="index"
+                    >
+                      <div class="col-4 col-md-4">
+                        <img
+                          :src="`${webURL}/image/` + items.image"
+                          class="img-fluid my-2"
+                          style="
+                            max-height: 100px;
+                            max-width: 100px;
+                            width: 100%;
+                          "
+                          alt=""
+                        />
+                      </div>
+                      <div class="col-8 col-md-8">
+                        <h5 class="text-left font-weight-bold">
+                          {{ items.name }}
+                        </h5>
+                        <div class="btn-group float-left btn-group-sm">
+                          <button
+                            type="button"
+                            class="btn btn-outline-primary font-weight-bold"
+                            @click="minValue(items.id)"
+                          >
+                            -
+                          </button>
+                          <button type="button" class="btn btnvalue">
+                            {{ items.quantity }}
+                          </button>
+                          <button
+                            type="button"
+                            class="btn btn-outline-primary font-weight-bold"
+                            @click="addValue(items.id)"
+                          >
+                            +
+                          </button>
+                        </div>
+                        <span class="font-weight-bold" style="float: right"
+                          >Rp. {{ items.quantity * items.price }}</span
+                        >
+                        <br />
+                        <button
+                          @click="deleteCart(items.id)"
+                          class="btn btn-danger mt-3 float-right"
+                        >
+                          cancel
+                        </button>
+                      </div>
+                      <br />
+                    </div>
+                    <h4 class="text-right mt-5 font-weight-bold">
+                      Total : Rp. {{ addPrice }}
+                    </h4>
+                    <h4 class="mt-5 font-weight-bold">Payment : Cash</h4>
+                    <b-button
+                      class="btn btn-primary btn-block my-3 font-weight-bold"
+                      v-b-modal.modal-center
+                      variant="secondary"
+                      size="lg"
+                      @click="historyInput(dataCart)"
+                    >
+                      Print
+                    </b-button>
+                    <h5 class="text-center">Or</h5>
+                    <b-button
+                      class="btn btn-primary btn-block my-3 font-weight-bold"
+                      v-b-modal.modal-center
+                      variant="primary"
+                      size="lg"
+                    >
+                      Send Email
+                    </b-button>
+                  </div>
+                </b-modal>
               </div>
-              <button class="font-weight-bold btn btn-secondary btn-block">
+              <button
+                class="font-weight-bold btn btn-secondary btn-block"
+                @click="cancel()"
+              >
                 CANCEL
               </button>
             </div>
@@ -244,6 +341,7 @@ export default {
   },
   data () {
     return {
+      pageFood: 1,
       form: {
         search: '',
         sort: null,
@@ -287,12 +385,10 @@ export default {
       this.$router.push('/detailitems/' + id)
     },
     deleteItems (id) {
-      console.log(id)
       this.delete(id)
     },
     addCart (element) {
       const cekProduct = this.dataCart.filter((items) => {
-        console.log(items)
         return items.id === element.id
       })
       if (cekProduct.length >= 1) {
@@ -316,10 +412,8 @@ export default {
       }
       this.quantityPrice()
       this.totalprice()
-      console.log(this.dataCart)
     },
     deleteCart: function (id) {
-      console.log(id)
       const deleteCart = this.dataCart.filter((items) => {
         return items.id !== id
       })
@@ -331,7 +425,6 @@ export default {
       this.dataCart.forEach(element => {
         if (id === element.id) {
           element.quantity += 1
-          console.log(element.quantity * element.price)
         }
       })
       this.quantityPrice()
@@ -362,7 +455,6 @@ export default {
       })
     },
     historyInput (data) {
-      // console.log(data)
       data.forEach((element) => {
         this.databaru = ''
         const getData = {
@@ -377,6 +469,9 @@ export default {
         this.$router.push('/history')
       })
       alert('data input success')
+    },
+    cancel () {
+      this.dataCart = []
     },
     generateInv () {
       function getRandomInt (min, max) {

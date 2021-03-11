@@ -47,9 +47,7 @@ const items = {
       })
     },
     actionGetDetail (context, id) {
-      console.log(context.state.webURL)
       axios.get(`${context.state.webURL}/items/${id}`, { headers: { token: context.rootState.auth.token } }).then((response) => {
-        console.log(response)
         context.commit('setDetailItems', response.data)
       }).catch((error) => {
         console.log(error)
@@ -58,7 +56,6 @@ const items = {
     addItems (context, dataBaru) {
       return new Promise((resolve, reject) => {
         axios.post(`${context.state.webURL}/items`, dataBaru, { headers: { token: context.rootState.auth.token } }).then((response) => {
-          console.log(response.data)
           resolve(response.data)
         }).catch((err) => {
           console.log(err)
@@ -74,10 +71,8 @@ const items = {
       })
     },
     updateItems (context, data) {
-      console.log(data.id)
       return new Promise((resolve, reject) => {
         axios.put(`${context.state.webURL}/items/${data.id}`, data.fileUpdate, { headers: { token: context.rootState.auth.token } }).then((response) => {
-          console.log(response.data)
           resolve(response.data)
         }).catch((err) => {
           console.log(err)

@@ -1,9 +1,15 @@
 
+  /* sidebar */
+  
+  /* endsidebar */
   .bgimagelo {
     background-image: url(../assets/Food-Background-Wallpaper.jpg);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    min-width: 100%;
+    min-height: 100%;
   }
   .fonttype {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -69,11 +75,6 @@
     height: 100%;
   }
   
-  .imagemenusidebar {
-    position: relative;
-    left: 20%;
-    top: 3%;
-  }
   
   .imagemenuhistory {
     position: relative;
@@ -205,10 +206,6 @@
     border-radius: 10px;
   }
   
-  body {
-    font-family: "Lato", sans-serif;
-    height: 100%;
-  }
   
   .sidenav {
     height: 100%;
@@ -281,6 +278,9 @@
       padding-left: 25%;
       padding-top: 1%;
       padding-right: 2%;
+    }
+    .iconlog{
+      margin-left: 50%;
     }
   
     .imagemenuhistory {

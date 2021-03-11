@@ -73,7 +73,6 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
-  // console.log(to.matched[0].meta.auth)
 })
 
 export default router

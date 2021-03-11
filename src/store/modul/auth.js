@@ -21,8 +21,6 @@ const modulAuth = {
     login (context, data) {
       return new Promise((resolve, reject) => {
         axios.post(`${context.state.webURL}/login`, data).then((response) => {
-          console.log(response)
-          // console.log(response.data.msg)
           localStorage.setItem('token', response.data.token)
           localStorage.setItem('setCashier', response.data.name)
           context.commit('setToken', response.data.token)
@@ -30,7 +28,6 @@ const modulAuth = {
           resolve(response.data)
         }).catch((err) => {
           console.log(err)
-          console.log(err.data.code)
         })
       })
     },

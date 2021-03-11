@@ -1,5 +1,5 @@
 <template>
-  <div class="sidemenu">
+  <div class="col-3 col-sm-2 col-md-1 sidemenu">
     <div class="menu">
       <router-link to="/items">
         <img
@@ -21,7 +21,6 @@
           class="img-fluid rounded imagemenusidebar mt-3"
         />
       </a>
-
       <b-modal v-model="modalShow">
         <template #modal-title>
           <h3 class="font-weight-bold">Add Item</h3>
@@ -117,6 +116,24 @@
       </b-modal>
       <!-- <router-link to="/insert"> <img src="../assets/add.jpg" class="img-fluid rounded imagemenusidebar mt-3"></router-link> -->
     </div>
+    <b-icon
+      icon="cart3"
+      class="rounded-circle p-1 my-3 mx-3 d-block d-sm-none d-none"
+      variant="primary"
+      v-b-modal.modal-cart-mobile
+      font-scale="3"
+    >
+      <span class="badge badge-light">9</span>
+    </b-icon>
+    <b-icon
+      icon="power"
+      class="rounded-circle bg-danger p-1 mt-5 ml-3"
+      variant="light"
+      font-scale="2"
+      @click="whenLogout()"
+    >
+      logout
+    </b-icon>
   </div>
 </template>
 
@@ -125,15 +142,11 @@
   position: fixed;
   height: 100%;
   background-color: aliceblue;
-  max-width: 100px;
-  width: 100%;
   left: 0;
   padding: 20px;
   z-index: 1;
 }
 .menu {
-  display: flex;
-  height: 50px;
   align-items: center;
   justify-content: center;
 }
@@ -141,7 +154,9 @@
 
 <script>
 import { mapActions } from 'vuex'
+import mixinsdata from '../mixins/mixins'
 export default {
+  mixins: [mixinsdata],
   data () {
     return {
       modalShow: false,
@@ -164,7 +179,8 @@ export default {
   methods: {
     ...mapActions({
       actionInput: 'items/addItems',
-      get: 'items/getItems'
+      get: 'items/getItems',
+      setLogout: 'auth/logout'
     }),
     input () {
       const convertForm = new FormData()
@@ -188,6 +204,13 @@ export default {
     },
     uploadImage (e) {
       this.form.image = e.target.files[0]
+    },
+    whenLogout () {
+      this.setLogout().then((response) => {
+        if (response) {
+          this.$router.push('/')
+        }
+      })
     }
   }
 }

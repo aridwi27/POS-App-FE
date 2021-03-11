@@ -69,7 +69,7 @@
                 </div>
               </form>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 d-none d-md-block">
               <h1 class="text-center fonttype">Welcome</h1>
               <img
                 src="../assets/777d9c6e187bfc29677c7de89aa73c5a.jpg"

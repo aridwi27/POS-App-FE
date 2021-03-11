@@ -1,6 +1,6 @@
 <template>
   <div>
-    <headers />
+    <headers v-bind:Food="pageFood" />
     <div class="container">
       <div class="row">
         <div class="col-8">
@@ -173,6 +173,7 @@ export default {
   },
   data () {
     return {
+      pageFood: 1,
       statusCart: 0,
       paramId: this.$route.params.id,
       modalDelete: false,

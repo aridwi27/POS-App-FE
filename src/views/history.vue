@@ -102,7 +102,6 @@ export default {
       getDetail: 'history/getDetailHistory'
     }),
     detailHistory (inv) {
-      console.log(inv)
       this.$router.push('/historydetail/' + inv)
     },
     pageMove (page) {

@@ -31,13 +31,11 @@ const history = {
     },
     getHistory (context, data) {
       axios.get(`${context.state.webURL}/history?page=${data}`, { headers: { token: context.rootState.auth.token } }).then((response) => {
-        console.log(response.data)
         context.commit('setHistory', response.data.data)
         context.commit('setPage', response.data.pagination)
       })
     },
     getDetailHistory (context, inv) {
-      console.log(inv)
       axios.get(`${context.state.webURL}/history/${inv}`, { headers: { token: context.rootState.auth.token } }).then((response) => {
         context.commit('setDetail', response.data.data)
       })
