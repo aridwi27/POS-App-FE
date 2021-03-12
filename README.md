@@ -2,6 +2,13 @@
 
 This is an application for restaurant cashiers that features add menu items, stores transaction history, and calculates menu totals at checkout. Built using the vue js framework and node js
 
+# Dependencies
+
+1. Axios
+2. Bootstrap-vue
+3. Vue-sweetalert2
+4. vuex
+
 # Apps preview
 
 ![login](https://user-images.githubusercontent.com/44130582/110907714-c4f1d880-8348-11eb-8108-966dde163268.PNG)
@@ -48,4 +55,4 @@ https://github.com/aridwi27/POS-App-BE
 
 
 # Demo
-[I'm an inline-style link](https://www.google.com)
+[Pos Apps Demo](http://bit.ly/restorantPOS)
