@@ -1,4 +1,4 @@
-# apps for cashier versi beta
+# POS App
 
 app have 2 access admin and chashier, admin can access all page then chashier just only page items food
 
@@ -6,9 +6,12 @@ app have 2 access admin and chashier, admin can access all page then chashier ju
 
 ![login](https://user-images.githubusercontent.com/44130582/110907714-c4f1d880-8348-11eb-8108-966dde163268.PNG)
 
-![add2](https://user-images.githubusercontent.com/44130582/110037937-1105b180-7d7a-11eb-91a6-a7e210b44c98.PNG)
+![checkout1](https://user-images.githubusercontent.com/44130582/110907935-113d1880-8349-11eb-9493-76d0ea7e3649.png)
 
-![checkout2](https://user-images.githubusercontent.com/44130582/110037941-12cf7500-7d7a-11eb-8734-7979ce88cc4d.PNG)
+![checkout2](https://user-images.githubusercontent.com/44130582/110907943-1306dc00-8349-11eb-9e71-e2492945ea86.png)
+
+![history](https://user-images.githubusercontent.com/44130582/110907949-15693600-8349-11eb-9495-d27e54cc99d9.PNG)
+
 
 ## Project setup
 ```
